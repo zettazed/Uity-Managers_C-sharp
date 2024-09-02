@@ -38,6 +38,7 @@ public class AdsManager : MonoBehaviour, IAds
     {
         InitInterstitialAd();
         InitRewardedAd();
+        InitAppOpenAd();
     }
 
     private void RequestBanner()
@@ -65,6 +66,35 @@ public class AdsManager : MonoBehaviour, IAds
         _rewardedAd.LoadAd(adRequest);
         _rewardedAd.OnAdClosed += _rewardedAd_OnAdClosed;
         _rewardedAd.OnUserEarnedReward += _rewardedAd_OnUserEarnedReward;
+    }
+
+    public void InitAppOpenAd()
+    {
+        // Clean up the old ad before loading a new one.
+        if (_appOpenAd != null)
+        {
+            _appOpenAd.Destroy();
+            _appOpenAd = null;
+        }
+    
+        Debug.Log("Loading the app open ad.");
+    
+        // Create our request used to load the ad.
+        AdRequest adRequest = new AdRequest.Builder().Build();
+    
+        // send the request to load the ad.
+        AppOpenAd.LoadAd(_appOpenAdKey, ScreenOrientation.Portrait, adRequest, ((appOpenAd, error) =>
+        {
+            if (error != null)
+            {
+                // Handle the error.
+                Debug.LogFormat("Failed to load the ad. (reason: {0})", error.LoadAdError.GetMessage());
+                return;
+            }
+    
+            // App open ad is loaded.
+            _appOpenAd = appOpenAd;
+        }));
     }
 
     public virtual void _interstitialAd_OnAdClosed(object sender, System.EventArgs e)
@@ -120,6 +150,19 @@ public class AdsManager : MonoBehaviour, IAds
         {
             InitRewardedAd();
             OpenLoadingAdMenu();
+        }
+    }
+
+    public void ShowAppOpenAd()
+    {
+        if (_appOpenAd != null)
+        {
+            Debug.Log("Showing app open ad.");
+            _appOpenAd.Show();
+        }
+        else
+        {
+            Debug.LogError("App open ad is not ready yet.");
         }
     }
 
