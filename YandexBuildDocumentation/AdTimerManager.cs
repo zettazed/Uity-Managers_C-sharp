@@ -25,15 +25,22 @@ public class AdTimerManager : MonoBehaviour
     {
         yield return new WaitForSeconds(180f);
 
-        _timerPanel.SetActive(true);
-        TimerTextChange(3);
-        yield return new WaitForSeconds(1f);
-        TimerTextChange(2);
-        yield return new WaitForSeconds(1f);
-        TimerTextChange(1);
-        yield return new WaitForSeconds(1f);
+        if (!YandexGame.nowAdsShow && YandexGame.timerShowAd >= YandexGame.Instance.infoYG.fullscreenAdInterval)
+        {
+            _timerPanel.SetActive(true);
+            TimerTextChange(3);
+            yield return new WaitForSeconds(1f);
+            TimerTextChange(2);
+            yield return new WaitForSeconds(1f);
+            TimerTextChange(1);
+            yield return new WaitForSeconds(1f);
 
-        YandexGame.FullscreenShow(null, closeAd);
+            YandexGame.FullscreenShow(null, closeAd);
+        }
+        else
+        {
+            StartCoroutine(Timer());
+        }
     }
 
     private void closeAd()
