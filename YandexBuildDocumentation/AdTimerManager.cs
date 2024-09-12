@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 using YG;
 using UnityEngine.UI;
@@ -15,26 +15,16 @@ public class AdTimerManager : MonoBehaviour
     [SerializeField] private string _timerTextRu = "Реклама через";
     [SerializeField] private string _timerTextTr = "Şununla reklam ver";
 
-    [Header("Options")]
-    [SerializeField] private bool nowAdsShow = false;
-    [SerializeField] private float fullscreenAdInterval;
-
-    private void Awake()
+    private void Start()
     {
-        fullscreenAdInterval = YandexGame.Instance.infoYG.fullscreenAdInterval;
-    }
-
-    public void Update()
-    {
-        if (!YandexGame.nowAdsShow && YandexGame.timerShowAd >= fullscreenAdInterval && !nowAdsShow)
-        {
-            StartCoroutine(Timer());
-        }
+        DontDestroyOnLoad(gameObject);
+        StartCoroutine(Timer());
     }
 
     public IEnumerator Timer()
     {
-        nowAdsShow = true;
+        yield return new WaitForSeconds(180f);
+
         _timerPanel.SetActive(true);
         TimerTextChange(3);
         yield return new WaitForSeconds(1f);
@@ -42,14 +32,14 @@ public class AdTimerManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         TimerTextChange(1);
         yield return new WaitForSeconds(1f);
-        
+
         YandexGame.FullscreenShow(null, closeAd);
     }
 
     private void closeAd()
     {
-        nowAdsShow = false;
         _timerPanel.SetActive(false);
+        StartCoroutine(Timer());
     }
 
     private void TimerTextChange(int sec)
