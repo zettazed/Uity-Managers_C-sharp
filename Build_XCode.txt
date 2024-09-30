@@ -22,3 +22,9 @@
 		В Pod файле изменить версию адмоб на 8.4
 	После загрузки в Testflight ошибка (invalid bundle):
 		В каждом таргете Always Embed Swift Standard Libraries - No
+
+
+Установка cocoapods:
+	export PATH="/Users/имя_пользователя/.gem/ruby/2.6.0/bin:$PATH"
+	sudo gem install drb -v 2.0.6
+	gem install activesupport -v 6.1.7.8
