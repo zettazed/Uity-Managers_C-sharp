@@ -28,3 +28,9 @@
 	export PATH="/Users/имя_пользователя/.gem/ruby/2.6.0/bin:$PATH"
 	sudo gem install drb -v 2.0.6
 	gem install activesupport -v 6.1.7.8
+
+	export GEM_HOME=$HOME/.gem
+	export PATH=$GEM_HOME/bin:$PATH
+	gem install cocoapods --user-install
+	sudo gem install -n /usr/local/bin cocoapods
+	pod setup
