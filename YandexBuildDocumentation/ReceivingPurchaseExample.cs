@@ -47,27 +47,12 @@ namespace YG.Example
             switch (id)
             {
                 case "gems1":
-                    MetaResource.gems.count += 80;
-                    break;
-                case "gems2":
-                    MetaResource.gems.count += 500;
-                    break;
-                case "gems3":
-                    MetaResource.gems.count += 1200;
-                    break;
-                case "gems4":
-                    MetaResource.gems.count += 2500;
-                    break;
-                case "gems5":
-                    MetaResource.gems.count += 6500;
-                    break;
-                case "gems6":
-                    MetaResource.gems.count += 14000;
+                    
                     break;
             }
 
             YandexGame.SaveProgress();
-            // Ваш код для обработки покупки. Например:
+            // Р’Р°С€ РєРѕРґ РґР»СЏ РѕР±СЂР°Р±РѕС‚РєРё РїРѕРєСѓРїРєРё. РќР°РїСЂРёРјРµСЂ:
             //if (id == "50")
             //    YandexGame.savesData.money += 50;
             //else if (id == "250")
